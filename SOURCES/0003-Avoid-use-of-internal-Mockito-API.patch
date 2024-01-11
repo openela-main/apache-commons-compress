@@ -1,0 +1,32 @@
+From 4dd332d8f82d3a5f0ac6654d2c1733e44da6ddbd Mon Sep 17 00:00:00 2001
+From: Mat Booth <mat.booth@redhat.com>
+Date: Thu, 7 Feb 2019 14:57:25 +0000
+Subject: [PATCH 3/3] Avoid use of internal Mockito API
+
+---
+ .../compress/utils/FixedLengthBlockOutputStreamTest.java        | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/test/java/org/apache/commons/compress/utils/FixedLengthBlockOutputStreamTest.java b/src/test/java/org/apache/commons/compress/utils/FixedLengthBlockOutputStreamTest.java
+index cfda61b..e94ccee 100644
+--- a/src/test/java/org/apache/commons/compress/utils/FixedLengthBlockOutputStreamTest.java
++++ b/src/test/java/org/apache/commons/compress/utils/FixedLengthBlockOutputStreamTest.java
+@@ -39,7 +39,6 @@ import java.nio.file.Path;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ import org.hamcrest.core.IsInstanceOf;
+ import org.junit.Test;
+-import org.mockito.internal.matchers.GreaterOrEqual;
+ 
+ public class FixedLengthBlockOutputStreamTest {
+ 
+@@ -294,7 +293,6 @@ public class FixedLengthBlockOutputStreamTest {
+ 
+     private static void assertContainsAtOffset(String msg, byte[] expected, int offset,
+         byte[] actual) {
+-        assertThat(actual.length, new GreaterOrEqual<>(offset + expected.length));
+         for (int i = 0; i < expected.length; i++) {
+             assertEquals(String.format("%s ([%d])", msg, i), expected[i], actual[i + offset]);
+         }
+-- 
+2.20.1
+
